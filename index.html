@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Lambs and Tigers</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+      <!-- JS, Popper.js, and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <style>
+         body,#body{
+         background-image: url('L&T.jpeg');
+         background-size: cover;
+         padding-top: 100px;
+         background-blend-mode: multiply;
+         }
+         background-image{
+         	filter: invert(100%);
+         }
+         canvas 
+         {
+         display: inline-flex;
+         }
+         #congrats
+         {
+            text-align: center;
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -150px;
+            font-size: 45px;
+            font-weight: bold;
+         }
+          #normal
+         {
+            display:  block;
+         }
+         .Empty{
+         fill:gainsboro;
+         }
+         .Goat{
+         fill:green;
+         }
+         .Tiger{
+         fill:red;
+         }
+         .Highlight{
+         stroke: gold; stroke-width: 0.35rem;
+         }
+         .carousel-control-next,
+         .carousel-control-prev {
+         filter: invert(100%);
+         }
+      </style>
+   </head>
+   <body class="bg-dark text-light" id="body">
+
+      <div id="congrats"></div>
+       <div id="normal">
+      <br>
+      <br>
+      <br>
+      <br>
+      <audio id="blip" src="Blip.mpeg"></audio>
+      <audio id="clap" src="Clap.mpeg"></audio>
+      <audio id="buzz" src="Buzz.mpeg"></audio>
+      <div class="container fixed-top text-left m-2">
+         <p style="font-size: 25px;" class="font-weight-bold">The Lambs and Tigers game</p>
+         <p style="font-size: 20px;" id="status">Goat starts the game</p>
+      </div>
+      <div class=" fixed-top text-right m-2">
+         <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" >
+         Game rules&nbsp;<span class="material-icons"style="font-size: 12px;">info</span>
+         </button>
+      </div>
+      <!-- <div class="container fixed-top m-5 text-right">
+         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+         Game rules
+         </button>
+         </div> -->
+      <!-- Modal -->
+      <div class="modal fade bg-secondary" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-light text-dark">
+               <div class="modal-header">
+                  <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">LAMBS & TIGERS GAME</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body m-3">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                     <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                     </ol>
+                     <div class="carousel-inner">
+                        <div class="carousel-item active text-center pl-5 pr-5 pb-5">
+                           <p>Welcome to the rules of the game:<br></p>
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           <p>&nbsp;&nbsp;This is an empty space</p>
+                           <!-- <br><br> -->
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           <p>&nbsp;&nbsp;This represents a TIGER</p>
+                           <!-- <br><br> -->
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Goat bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           <p>&nbsp;&nbsp;This represents a GOAT</p>
+                           <br>
+                           <p><b>UNITY IS STRENGTH</b></p>
+                        </div>
+                        <div class="carousel-item text-center pl-5 pr-5 pb-5">
+                           <!-- <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                              </svg> -->
+                           <p class="text-justify">The game is alternately played by Goat and Tiger players, always started by the Goat player.</p>
+                           <!-- <br><br>  -->
+                           <p class="text-justify">The game ends when either all the Tigers or Goats are out of moves to proceed further.</p>
+                           <!-- <br><br> -->
+                           <!-- <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                              </svg> -->
+                           <p class="text-center">Initially</p>
+                           <p class="text-justify">Tigers have a fixed position and can move. They are always 3 in number. And do not get killed.</p>
+                           <!-- <br><br> -->
+                           <!-- <svg width="3em" height="3em" viewBox="0 0 16 16" class="Goat bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                              </svg> -->
+                           <p class="text-center">15 Goats can only be placed and can be moved once all the Goats have come into the game.</p>
+                           <!-- <br><br> -->
+                           <p class="text-center">A Tiger can kill a Goat by jumping over it.<br>That is called a Match move.</p>
+                           <!-- <br><br> -->
+                        </div>
+                        <div class="carousel-item text-center pl-5 pr-5 pb-5">
+                           Movement is only possible if it is connected.<br><br>
+                           Before match move:<br><br>
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Goat bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           <br><br>
+                           After match move:<br><br>
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           &nbsp;&nbsp;&nbsp;&nbsp;
+                           <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
+                              <circle cx="8" cy="8" r="8"/>
+                           </svg>
+                           <br><br>
+                           <p>
+                              The Goat was killed by the Tiger, by jumping.
+                           </p>
+                           <p>
+                              But, Tiger can only be surrounded by Goats.
+                           </p>
+                        </div>
+                        <div class="carousel-item text-left pl-5 pr-5 pb-5">
+                          <ul style="list-style: none;">
+                          	<b>Credits:</b><br><br>
+                          	<li>Sara S</li><br>
+                          	<li>Swetha</li><br>
+                          	<li>Sai Vignesh R</li><br>
+                          	<li>Sulaiha Shameena</li><br>
+                          	<li>Tamilvendham K</li><br>
+                          	<li>Thejeshwar AB</li><br>
+                          	<li><small>&copy;RMKEC CSE department</small></li>
+                          </ul>
+                        </div>
+                     </div>
+                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                     <span class="sr-only">Previous</span>
+                     </a>
+                     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                     <span class="sr-only">Next</span>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- </div> -->
+      <div class="container-fluid fixed-bottom m-2">
+         <!-- <p style="font-size: 25px;" class="font-weight-bold">Game count:<br></p> -->
+         <p style="font-size: 20px;" id="goatcount"></p>
+         <p style="font-size: 20px;" id="goatkilled"></p>
+      </div>
+      <div class="container vertical-center">
+         <div class="row align-items-center text-center">
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="0" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">0</text> -->
+               </svg>
+            </div>
+         </div>
+         <br>
+         <br>
+         <br>
+         <hr>
+         <div class="row align-items-center text-center" style="padding: 0px 0px 0px 0px;">
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="1" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">1</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="2" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">2</text> -->
+               </svg>
+            </div>
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="3" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">3</text> -->
+               </svg>
+            </div>
+            <!-- &nbsp;&nbsp; -->
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Tiger bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="4" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">4</text> -->
+               </svg>
+            </div>
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="5" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">5</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="6" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">6</text> -->
+               </svg>
+            </div>
+         </div>
+         <br>
+         <hr>
+         <div class="row align-items-center text-center" style="padding: 0px 0px 0px 0px;">
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="7" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">7</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="8" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">8</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="9" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">9</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="10" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">10</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="11" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">11</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="12" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">12</text> -->
+               </svg>
+            </div>
+         </div>
+         <br>
+         <hr>
+         <div class="row align-items-center text-center" style="padding: 0px 0px 0px 0px;">
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="13" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">13</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="14" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">14</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="15" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">15</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="16" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">16</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="17" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">17</text> -->
+               </svg>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="18" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">18</text> -->
+               </svg>
+            </div>
+         </div>
+         <br>
+         <br>
+         <br>
+         <hr>
+         <div class="row align-items-center text-center" style="padding: 0px 8em 0px 8em;">
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="19" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">19</text> -->
+               </svg>
+            </div>
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="20" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">20</text> -->
+               </svg>
+            </div>
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="21" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">21</text> -->
+               </svg>
+            </div>
+            <div class="col justify-content-center">
+               <svg width="3em" height="3em" viewBox="0 0 16 16" class="Empty bi bi-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="22" onClick="reply_click(this.id)">
+                  <circle cx="8" cy="8" r="8"/>
+                  <!-- <text class="font-weight-bold" x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="0px" dy=".3em" style="font-size: 4px;">22</text> -->
+               </svg>
+            </div>
+         </div>
+      </div>
+  </div>
+      <canvas id="canvas"></canvas>
+      <script>
+         $(document).ready(function(){
+         
+         $("#exampleModalCenter").modal('show');
+         
+         });
+         var audio=document.getElementById("buzz");
+         audio.volume=0.25;
+         var toggleRef=false;
+         function reply_click(clicked_id)
+         {
+         pressed=clicked_id;
+         begin(pressed);
+         }
+         
+         
+         function fun(yourid)
+         {
+          humanid = yourid.id; 
+          return humanid;
+         }
+
+         function greet(name)
+         {
+         dummy=prompt("Enter a name:");
+         return dummy;
+         }
+         function  display(l){
+          console.log(l[0]);
+          console.log(l.slice(1,7));
+          console.log(l.slice(7,13));
+          console.log(l.slice(13,19));
+          console.log(l.slice(19,23));
+          document.getElementById("goatcount").innerHTML="Goats inside: "+goatcount_fun(l);
+          document.getElementById("goatkilled").innerHTML="Goats killed: "+goat_killed;
+          // document.getElementById('blip').play();
+          for(indexLoop=0;indexLoop<23;indexLoop++)
+          {
+          	var helper=indexLoop.toString();
+          	var y=document.getElementById(helper);
+          	var x=document.getElementById(helper).id;
+          	// console.log("YOU "+x)
+          	console.log(y.getAttribute("class"))
+          	if(y.getAttribute("class").includes("Empty"))
+          		y.classList.remove("Empty")
+          	else if(y.getAttribute("class").includes("Tiger"))
+          		y.classList.remove("Tiger")
+          	else if(y.getAttribute("class").includes("Goat"))
+          		y.classList.remove("Goat")
+          	if(l[indexLoop]=="G")
+          		y.classList.add("Goat")
+          	else if(l[indexLoop]=="T")
+          		y.classList.add("Tiger")
+          	else if(l[indexLoop]=="0")
+          		y.classList.add("Empty")
+          }
+          // if()
+         // ? toggleRef=!toggleRef;
+          if(toggleRef==true)
+          	document.getElementById("status").innerHTML="Goat's turn";
+          else
+          	document.getElementById("status").innerHTML="Tiger's turn";
+         }
+         
+         function  goatcount_fun(l){
+          var ct = 0;
+          for(var i=0;i<23;i++){
+              if(l[i] == 'G')
+              {
+                  ct += 1;
+              }
+          }
+          console.log(ct);
+          return (ct); 
+         }
+         
+         function  getpos(l){
+          console.log("Pick a position");
+          for(var i=0;i<23;i++){
+              if (l[i] == '0'){
+                  console.log(i);
+              } 
+          } 
+         }
+         
+         function movetiger(l,fromindex,toindex,from_and_to,middle,goat_killed,no_of_goats){
+          l[fromindex] = '0';
+          l[toindex] = 'T';
+          console.log('here');
+          single_comb = [fromindex,toindex];
+          var pos = -1;
+          for(var i=0;i< from_and_to.length; i++)
+          {
+          	if(from_and_to[i][0] == single_comb[0] && from_and_to[i][1] == single_comb[1])
+          	{
+          		pos = i;
+          		break;
+          	}
+          }
+          console.log("goat",pos);
+          console.log('here');
+          if(pos != -1)
+          {
+              console.log(middle[pos]);
+              l[middle[pos]] = "0";
+              goat_killed += 1;
+              no_of_goats -= 1;
+          }
+          return ([goat_killed,no_of_goats,l]);
+         }
+         
+         function fixgoat(l,index)
+         {
+          l[index] = 'G';
+          return l;
+         }
+         
+         function movegoat(l,fromindex,toindex){
+          l[fromindex] = '0';
+          l[toindex] = 'G';
+          return l;
+         }
+         
+         function checkmate(l,checkarray){
+          var tigercheck = 0;
+          for(var i=0;i<23;i++)
+          {
+             if (l[i] == 'T')
+             {
+                var check_array = checkarray[i];
+                var flag = true;
+                for(var j=0; j<from_and_to.length; j++)
+                {
+                   if(i == from_and_to[j][0] && l[from_and_to[j][1]] == 0 && l[middle[j]] == 'G')
+                   {
+                      flag = false;
+                   }
+                }
+                for(var j=0; j<check_array.length; j++)
+                {
+                   if (l[check_array[j]] == '0')
+                   {
+                      flag = false;
+                      break;
+                   }
+                }
+                if(flag)
+                {
+                   tigercheck += 1;
+                }
+             }
+          }
+          console.log("tigercheck",tigercheck);
+          if(tigercheck == 3)
+          {
+             return true;
+          }
+          return false;
+         }
+         
+         function checkvalid(fromindex, toindex, checkarray)
+         {
+          possiblities = checkarray[fromindex]; 
+          for(var i=0;i<possiblities.length;i++)
+          {
+             if(possiblities[i] == toindex)
+             {
+                return false;
+             }
+          }
+          return true;
+         }
+         function checkdoublejump(fromindex,toindex,from_and_to,middle)
+         {
+          for(var i=0; i<from_and_to.length; i++)
+          {
+             console.log(from_and_to[i][0],from_and_to[i][1],l[middle[i]])
+             if(from_and_to[i][0] == fromindex && from_and_to[i][1] == toindex)
+             {
+                //alert("Match");
+                document.getElementById('clap').play();
+                if(l[middle[i]] == 'G')
+                {
+                   return false;
+                }
+                return true;
+                //console.log("pos",l[middle[i]]);
+             }
+          }
+          return true;
+         }
+         
+         function isvalidmove(fromindex, l, checkarray)
+         {
+          for(var i=0; i<from_and_to.length; i++)
+          {
+             if(fromindex == from_and_to[i][0] && l[from_and_to[i][1]] == '0' && l[middle[i]] == 'G')
+             {
+                return false;
+             }
+          }
+          possiblities = checkarray[fromindex]; 
+          for(var i=0;i<possiblities.length;i++)
+          {
+             if(l[possiblities[i]] == '0')
+             {
+                return false;
+             }
+          }
+          return true;
+         }
+         
+         toggle = true;
+         l = ['T','0','0','T','T','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
+         
+         goatflag = true;
+         tigerflag = true;
+         no_of_goats = 15;
+         goat_killed = 0;
+         var from_and_to = [[0,8],[0,9],[0,10],[0,11],[1,3],[1,13],[2,4],[2,14],[3,1],[3,5],[3,15],[4,2],[4,6],[4,16],[5,3],[5,17],
+                     [6,4],[6,18],[7,9],[8,0],[8,10],[8,19],[9,0],[9,7],[9,11],[9,20],[10,0],[10,8],[10,12],[10,21],[11,0],[11,9],
+                     [11,22],[12,10],[13,15],[13,1],[14,2],[14,16],[15,3],[15,13],[15,17],[16,4],[16,14],[16,18],[17,5],[17,15],
+                    [18,16],[18,6],[19,8],[19,21],[20,9],[20,22],[21,10],[21,19],[22,11],[22,20]
+         ]; 
+         var middle = [2,3,4,5,2,7,3,8,2,4,9,3,5,10,4,11,5,12,8,2,9,14,3,8,10,15,4,9,11,16,5,10,17,11,14,7,8,15,9,14,16,10,15,17,11,16,
+              17,12,14,20,15,21,16,20,17,21];
+         var checkarray = [[2,3,4,5],[2,7],[0,1,8,3],[0,2,9,4],[0,3,10,5],[0,4,11,6],[5,12],[1,8,13],[2,7,14,9],[3,8,15,10],[4,9,16,11],
+                    [5,10,17,12],[6,11,18],[7,14],[8,13,15,19],[9,20,14,16],[10,15,17,21],[16,18,11,22],[12,17],[20,14],[15,21,19],
+                   [20,22,16],[17,21]];
+         goatcount = 0;
+         var fromindexHelp=0;
+         
+         function begin(pressed)
+         {
+          if(checkmate(l,checkarray))
+             {
+                //alert("Over");
+                confetti("Goat");
+                return;
+             }
+         if ((goat_killed<5) && !(checkmate(l,checkarray))){
+          getpos(l);
+          display(l);
+          if (toggle){
+             // alert("Goat's turn");
+             console.log("Goat's turn");
+             goatcount = goatcount_fun(l);
+             console.log("goatcount",goatcount,no_of_goats);
+             if (goatcount < no_of_goats)
+             {
+                //index = prompt("fixgoatindex");
+                index = pressed;
+                if(l[pressed] != '0')
+                {
+                	document.getElementById('buzz').play();
+                   alert("Invalid move!");
+                   return;
+                }
+                // alert("You clicked "+index);
+                toggle = !(toggle);  
+                l = fixgoat(l,index);
+             	  toggleRef=false;
+             	  document.getElementById('blip').play();
+                display(l);
+                //begin.toggle = !(begin.toggle);   
+                console.log(toggle);
+                return;
+             }
+             else
+             {
+                
+                if(goatflag)
+                {
+                fromindex = pressed;
+                fromindexHelp = pressed;
+                
+                // alert(pressed);
+                if(l[fromindex] != 'G' || isvalidmove(fromindex,l,checkarray))
+                {
+                   document.getElementById('buzz').play(); 
+                   alert("Invalid");
+                   return;
+                }
+                var high=document.getElementById(pressed.toString());
+         		high.getElementsByTagName("circle")[0].classList.add("Highlight");
+                goatflag = !(goatflag);
+                display(l);
+                return;
+                }
+                else{
+                toindex =  pressed;
+                //here
+                if(l[toindex] != '0' || checkvalid(fromindex,toindex,checkarray))
+                {
+                   document.getElementById('buzz').play();
+                   alert("Invalid");
+                   return;
+                }
+                goatflag = !(goatflag);
+                }
+         
+                l = movegoat(l,fromindex,toindex);
+                toggleRef=false;
+                document.getElementById('blip').play();
+                for(var i=0;i<23;i++){
+              	var high=document.getElementById(i.toString());
+         	  	high.getElementsByTagName("circle")[0].classList.remove("Highlight");}
+                display(l);
+             }
+             // toggleRef=true;
+          }      
+                 
+          else{
+         
+              // alert("Tiger's turn");
+              console.log("Tiger's turn");
+              if(tigerflag)
+                {
+                fromindex = pressed;
+                
+                if(l[fromindex] != 'T' || isvalidmove(fromindex,l,checkarray))
+                { 
+                   document.getElementById('buzz').play();
+                   alert("Invalid move!"); 
+                   return;
+                }
+                var high=document.getElementById(pressed.toString());
+         		high.getElementsByTagName("circle")[0].classList.add("Highlight");
+                tigerflag = !(tigerflag);
+                return;
+                }
+                else
+                {
+                toindex = pressed;
+                //here
+                if(l[toindex] != '0')
+                { 
+                   document.getElementById('buzz').play();
+                   alert("Invalid move!");
+                   return;
+                }
+                else if(checkvalid(fromindex, toindex, checkarray) && (checkdoublejump(fromindex, toindex, from_and_to, middle)))
+                {
+                   alert("Invalid move!");
+                   document.getElementById('buzz').play();
+                   return;
+                }
+                tigerflag = !(tigerflag);
+                }
+                 // toggleRef=false;
+                // y.classList.remove("Highlight");
+              returnlist = movetiger(l,fromindex,toindex,from_and_to,middle,goat_killed,no_of_goats);
+              console.log(returnlist);
+              goat_killed = returnlist[0];
+              no_of_goats = returnlist[1];
+              l = returnlist[2];
+              toggleRef=true;
+              document.getElementById('blip').play();
+              for(var i=0;i<23;i++){
+              var high=document.getElementById(i.toString());
+         	  high.getElementsByTagName("circle")[0].classList.remove("Highlight");}
+              display(l);
+          }   
+          toggle = !(toggle);   
+         }
+         if (goat_killed >= 5){
+          console.log("Tiger wins!!");
+          confetti("Tiger");
+          return;
+         }
+         if(checkmate(l,checkarray))
+             {
+                console.log("Goat wins!");
+                confetti("Goat"); 
+                return;
+             }
+         } 
+         // begin();
+           //confetti
+   function confetti(name) {
+    //canvas init
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    document.getElementById("normal").style.display = "none";
+   
+    //document.getElementById("body").css('background-image', 'none');
+    
+
+    var h1 = document.createElement('h1');
+    var textanswer = document.createTextNode(`Congratulations`); 
+    h1.appendChild(textanswer);
+    document.getElementById('congrats').appendChild(h1);
+
+    var h1 = document.createElement('h1');
+    var textanswer = document.createTextNode(`${name} Wins!`); 
+    h1.setAttribute('id','name');
+    h1.appendChild(textanswer);
+    document.getElementById('congrats').appendChild(h1);
+
+    var button = document.createElement('button');
+    button.innerHTML = 'New Game';
+    button.setAttribute('class','btn btn-secondary');
+    button.onclick = function()
+    {
+      location.reload();return false;
+    };       
+    document.getElementById('congrats').appendChild(button);
+
+
+    //canvas dimensions
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    //snowflake particles
+    var mp = 200; //max particles
+    var particles = [];
+    for (var i = 0; i < mp; i++) {
+        particles.push({
+            x: Math.random() * W, //x-coordinate
+            y: Math.random() * H, //y-coordinate
+            r: Math.random() * 15 + 1, //radius
+            d: Math.random() * mp, //density
+            color: "rgba(" + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", 0.8)",
+            tilt: Math.floor(Math.random() * 5) - 5
+        });
+    }
+
+    //Lets draw the flakes
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+
+
+        for (var i = 0; i < mp; i++) {
+            var p = particles[i];
+            ctx.beginPath();
+            ctx.lineWidth = p.r;
+            ctx.strokeStyle = p.color; // Green path
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.x + p.tilt + p.r / 2, p.y + p.tilt);
+            ctx.stroke(); // Draw it
+        }
+
+        update();
+    }
+
+    //Function to move the snowflakes
+    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
+    var angle = 0;
+
+    function update() {
+        angle += 0.01;
+        for (var i = 0; i < mp; i++) {
+            var p = particles[i];
+            //Updating X and Y coordinates
+            //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+            //Every particle has its own density which can be used to make the downward movement different for each flake
+            //Lets make it more random by adding in the radius
+            p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
+            p.x += Math.sin(angle) * 2;
+
+            //Sending flakes back from the top when it exits
+            //Lets make it a bit more organic and let flakes enter from the left and right also.
+            if (p.x > W + 5 || p.x < -5 || p.y > H) {
+                if (i % 3 > 0) //66.67% of the flakes
+                {
+                    particles[i] = {
+                        x: Math.random() * W,
+                        y: -10,
+                        r: p.r,
+                        d: p.d,
+                        color: p.color,
+                        tilt: p.tilt
+                    };
+                } else {
+                    //If the flake is exitting from the right
+                    if (Math.sin(angle) > 0) {
+                        //Enter from the left
+                        particles[i] = {
+                            x: -5,
+                            y: Math.random() * H,
+                            r: p.r,
+                            d: p.d,
+                            color: p.color,
+                            tilt: p.tilt
+                        };
+                    } else {
+                        //Enter from the right
+                        particles[i] = {
+                            x: W + 5,
+                            y: Math.random() * H,
+                            r: p.r,
+                            d: p.d,
+                            color: p.color,
+                            tilt: p.tilt
+                        };
+                    }
+                }
+            }
+        }
+    }
+
+    //animation loop
+    setInterval(draw, 20);
+}
+
+function positionFooter(){
+    var $containerHeight = $(window).height();
+    if ($containerHeight <= 700) 
+    {
+       alert('resize!');
+    }
+}
+$(document).ready(function () {
+    positionFooter();//run when page first loads
+});
+
+      </script>
+   </body>
+</html>
